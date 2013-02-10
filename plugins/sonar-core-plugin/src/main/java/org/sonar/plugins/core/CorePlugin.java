@@ -118,6 +118,7 @@ import org.sonar.plugins.core.widgets.reviews.ReviewsPerDeveloperWidget;
 import org.sonar.plugins.core.widgets.reviews.UnplannedReviewsWidget;
 
 import java.util.List;
+import org.sonar.plugins.core.widgets.SystemCoverageWidget;
 
 @Properties({
   @Property(
@@ -418,6 +419,7 @@ public final class CorePlugin extends SonarPlugin {
         AlertsWidget.class,
         CoverageWidget.class,
         ItCoverageWidget.class,
+        SystemCoverageWidget.class,
         CommentsDuplicationsWidget.class,
         DescriptionWidget.class,
         ComplexityWidget.class,
