@@ -1005,7 +1005,7 @@ public final class CoreMetrics {
    * @since 3.6
    */
   public static final Metric NEW_SYSTEM_UNCOVERED_LINES = new Metric.Builder(NEW_SYSTEM_UNCOVERED_LINES_KEY, "New uncovered lines by System", Metric.ValueType.INT)
-      .setDescription("New uncovered lines by Integration Tests")
+      .setDescription("New uncovered lines by System Tests")
       .setDirection(Metric.DIRECTION_WORST)
       .setDomain(DOMAIN_SYSTEM_TESTS)
       .setFormula(new SumChildValuesFormula(false))
@@ -1037,7 +1037,7 @@ public final class CoreMetrics {
    * @since 3.6
    */
   public static final Metric NEW_SYSTEM_LINE_COVERAGE = new Metric.Builder(NEW_SYSTEM_LINE_COVERAGE_KEY, "New line coverage by System", Metric.ValueType.PERCENT)
-      .setDescription("Line Coverage by Integration Tests of added/changed code")
+      .setDescription("Line Coverage by System Tests of added/changed code")
       .setDirection(Metric.DIRECTION_BETTER)
       .setQualitative(true)
       .setWorstValue(0.0)
@@ -1088,7 +1088,7 @@ public final class CoreMetrics {
    * @since 3.6
    */
   public static final Metric NEW_SYSTEM_CONDITIONS_TO_COVER = new Metric.Builder(NEW_SYSTEM_CONDITIONS_TO_COVER_KEY, "New conditions to cover by System", Metric.ValueType.INT)
-      .setDescription("New conditions to cover by Integration Tests")
+      .setDescription("New conditions to cover by System Tests")
       .setDomain(DOMAIN_SYSTEM_TESTS)
       .setFormula(new SumChildValuesFormula(false))
       .setDeleteHistoricalData(true)
@@ -1118,7 +1118,7 @@ public final class CoreMetrics {
    * @since 3.6
    */
   public static final Metric NEW_SYSTEM_UNCOVERED_CONDITIONS = new Metric.Builder(NEW_SYSTEM_UNCOVERED_CONDITIONS_KEY, "New uncovered conditions by System", Metric.ValueType.INT)
-      .setDescription("New uncovered conditions by Integration Tests")
+      .setDescription("New uncovered conditions by System Tests")
       .setDirection(Metric.DIRECTION_WORST)
       .setDomain(DOMAIN_SYSTEM_TESTS)
       .setFormula(new SumChildValuesFormula(false))
@@ -1152,7 +1152,7 @@ public final class CoreMetrics {
    * @since 3.6
    */
   public static final Metric NEW_SYSTEM_BRANCH_COVERAGE = new Metric.Builder(NEW_SYSTEM_BRANCH_COVERAGE_KEY, "New branch coverage by System", Metric.ValueType.PERCENT)
-      .setDescription("Branch coverage by Integration Tests of new/changed code")
+      .setDescription("Branch coverage by System Tests of new/changed code")
       .setDirection(Metric.DIRECTION_BETTER)
       .setQualitative(true)
       .setDomain(DOMAIN_SYSTEM_TESTS)
