@@ -202,6 +202,7 @@ class ResourceController < ApplicationController
 
       it_prefix = ''
       it_prefix = 'it_' if (@coverage_filter.start_with?('it_') || @coverage_filter.start_with?('new_it_'))
+      it_prefix = 'system_' if (@coverage_filter.start_with?('system_') || @coverage_filter.start_with?('new_system_'))
       it_prefix = 'overall_' if (@coverage_filter.start_with?('overall_') || @coverage_filter.start_with?('new_overall_'))
 
       @hits_by_line = load_distribution("#{it_prefix}coverage_line_hits_data")
@@ -247,6 +248,7 @@ class ResourceController < ApplicationController
 
       elsif ('uncovered_lines'==@coverage_filter || 'new_uncovered_lines'==@coverage_filter ||
           'it_uncovered_lines'==@coverage_filter || 'new_it_uncovered_lines'==@coverage_filter ||
+          'system_uncovered_lines'==@coverage_filter || 'new_system_uncovered_lines'==@coverage_filter ||
           'overall_uncovered_lines'==@coverage_filter || 'new_overall_uncovered_lines'==@coverage_filter)
         @coverage_filter = "#{it_prefix}uncovered_lines"
         filter_lines { |line| line.hits && line.hits==0 && line.after(to) }
@@ -255,6 +257,8 @@ class ResourceController < ApplicationController
           'new_conditions_to_cover'==@coverage_filter || 'new_branch_coverage'==@coverage_filter ||
           'it_conditions_to_cover'==@coverage_filter || 'it_branch_coverage'==@coverage_filter ||
           'new_it_conditions_to_cover' == @coverage_filter || 'new_it_branch_coverage'==@coverage_filter ||
+          'system_conditions_to_cover'==@coverage_filter || 'system_branch_coverage'==@coverage_filter ||
+          'new_system_conditions_to_cover' == @coverage_filter || 'new_system_branch_coverage'==@coverage_filter ||
           'overall_conditions_to_cover'==@coverage_filter || 'overall_branch_coverage'==@coverage_filter ||
           'new_overall_conditions_to_cover' == @coverage_filter || 'new_overall_branch_coverage'==@coverage_filter)
         @coverage_filter="#{it_prefix}conditions_to_cover"
@@ -262,6 +266,7 @@ class ResourceController < ApplicationController
 
       elsif ('uncovered_conditions' == @coverage_filter || 'new_uncovered_conditions' == @coverage_filter ||
         'it_uncovered_conditions'==@coverage_filter || 'new_it_uncovered_conditions' == @coverage_filter ||
+        'system_uncovered_conditions'==@coverage_filter || 'new_system_uncovered_conditions' == @coverage_filter ||
         'overall_uncovered_conditions'==@coverage_filter || 'new_overall_uncovered_conditions' == @coverage_filter)
         @coverage_filter="#{it_prefix}uncovered_conditions"
         filter_lines { |line| line.conditions && line.covered_conditions && line.covered_conditions<line.conditions && line.after(to) }

@@ -118,6 +118,10 @@ import org.sonar.plugins.core.widgets.reviews.ReviewsPerDeveloperWidget;
 import org.sonar.plugins.core.widgets.reviews.UnplannedReviewsWidget;
 
 import java.util.List;
+import org.sonar.plugins.core.sensors.SystemBranchCoverageDecorator;
+import org.sonar.plugins.core.sensors.SystemCoverageDecorator;
+import org.sonar.plugins.core.sensors.SystemLineCoverageDecorator;
+import org.sonar.plugins.core.timemachine.NewSystemCoverageFileAnalyzer;
 import org.sonar.plugins.core.widgets.SystemCoverageWidget;
 
 @Properties({
@@ -477,6 +481,9 @@ public final class CorePlugin extends SonarPlugin {
         ItLineCoverageDecorator.class,
         ItCoverageDecorator.class,
         ItBranchCoverageDecorator.class,
+        SystemLineCoverageDecorator.class,
+        SystemCoverageDecorator.class,
+        SystemBranchCoverageDecorator.class,        
         OverallLineCoverageDecorator.class,
         OverallCoverageDecorator.class,
         OverallBranchCoverageDecorator.class,
@@ -504,6 +511,7 @@ public final class CorePlugin extends SonarPlugin {
         TimeMachineConfigurationPersister.class,
         NewCoverageFileAnalyzer.class,
         NewItCoverageFileAnalyzer.class,
+        NewSystemCoverageFileAnalyzer.class,
         NewOverallCoverageFileAnalyzer.class,
         NewCoverageAggregator.class,
 
