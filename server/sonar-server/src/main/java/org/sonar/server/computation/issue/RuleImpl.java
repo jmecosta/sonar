@@ -30,6 +30,9 @@ import org.sonar.api.server.debt.DebtRemediationFunction;
 import org.sonar.api.server.debt.internal.DefaultDebtRemediationFunction;
 import org.sonar.db.rule.RuleDto;
 
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
+
 import static com.google.common.collect.Sets.union;
 
 @Immutable
@@ -42,6 +45,8 @@ public class RuleImpl implements Rule {
   private final Integer subCharacteristicId;
   private final Set<String> tags;
   private final DebtRemediationFunction remediationFunction;
+
+  private static final Logger LOG = Loggers.get(RuleImpl.class);
 
   public RuleImpl(RuleDto dto) {
     this.id = dto.getId();
@@ -121,6 +126,8 @@ public class RuleImpl implements Rule {
   private static DebtRemediationFunction effectiveRemediationFunction(RuleDto dto) {
     String fn = dto.getRemediationFunction();
     if (fn != null) {
+      LOG.info("Processing Sqale Rule: '{}' - Key: '{}'", dto.getName(), dto.getKey());
+      
       return new DefaultDebtRemediationFunction(DebtRemediationFunction.Type.valueOf(fn), dto.getRemediationCoefficient(), dto.getRemediationOffset());
     }
     String defaultFn = dto.getDefaultRemediationFunction();

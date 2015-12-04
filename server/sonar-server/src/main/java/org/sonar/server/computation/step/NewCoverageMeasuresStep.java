@@ -55,6 +55,9 @@ import org.sonar.server.computation.period.PeriodsHolder;
 import org.sonar.server.computation.scm.ScmInfo;
 import org.sonar.server.computation.scm.ScmInfoRepository;
 
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
+
 import static org.sonar.server.computation.measure.Measure.newMeasureBuilder;
 import static org.sonar.server.computation.period.PeriodPredicates.viewsRestrictedPeriods;
 
@@ -62,6 +65,8 @@ import static org.sonar.server.computation.period.PeriodPredicates.viewsRestrict
  * Computes measures related to the New Coverage. These measures do not have values, only variations.
  */
 public class NewCoverageMeasuresStep implements ComputationStep {
+
+  private static final Logger LOGGER = Loggers.get(NewCoverageMeasuresStep.class);
 
   private static final List<Formula> FORMULAS = ImmutableList.<Formula>of(
     // UT coverage
@@ -384,12 +389,16 @@ public class NewCoverageMeasuresStep implements ComputationStep {
       Map<Integer, Integer> coveredConditionsByLine = parseCountByLine(context.getMeasure(metricKeys.getCoveredConditionsByLine()));
 
       for (Map.Entry<Integer, Integer> entry : hitsByLine.entrySet()) {
-        int lineId = entry.getKey();
-        int hits = entry.getValue();
-        int conditions = (Integer) ObjectUtils.defaultIfNull(conditionsByLine.get(lineId), 0);
-        int coveredConditions = (Integer) ObjectUtils.defaultIfNull(coveredConditionsByLine.get(lineId), 0);
-        long date = componentScm.getChangesetForLine(lineId).getDate();
-        analyze(context.getPeriods(), date, hits, conditions, coveredConditions);
+	try {
+           int lineId = entry.getKey();
+           int hits = entry.getValue();
+           int conditions = (Integer) ObjectUtils.defaultIfNull(conditionsByLine.get(lineId), 0);
+           int coveredConditions = (Integer) ObjectUtils.defaultIfNull(coveredConditionsByLine.get(lineId), 0);
+           long date = componentScm.getChangesetForLine(lineId).getDate();
+           analyze(context.getPeriods(), date, hits, conditions, coveredConditions);
+	} catch (Exception ex) {
+           LOGGER.debug("Failed to process coverage measure '{}'", ex.getMessage(), fileComponent.getName());
+        }
       }
     }
 
@@ -430,6 +439,10 @@ public class NewCoverageMeasuresStep implements ComputationStep {
       newConditions.increment(period, conditions);
       if (conditions > 0) {
         newCoveredConditions.increment(period, coveredConditions);
+
+
+
+
       }
     }
 

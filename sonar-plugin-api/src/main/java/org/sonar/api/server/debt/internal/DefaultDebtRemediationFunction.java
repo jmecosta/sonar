@@ -86,6 +86,11 @@ public class DefaultDebtRemediationFunction implements DebtRemediationFunction {
         break;
       case CONSTANT_ISSUE:
         checkArgument(this.coefficient == null && this.offset != null, "Constant/issue functions must only have a non empty offset");
+	//if (this.coefficient == null && this.offset != null)
+	//{
+	//	this.offset = "";
+	//	this.coefficient = "5min";
+	//}
         break;
       default:
         throw new IllegalArgumentException(String.format("Unknown type on %s", this));
